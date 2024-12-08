@@ -1,0 +1,41 @@
+#form-data{
+    margin-top: 50px;
+    margin-left: 90px;
+}
+
+input{
+    background-color: #2A5DE1;
+    color: white;
+    padding: 12px;
+    width: 300px;
+}
+
+body{
+    background-color: #ffff;
+    color: black;
+}
+::placeholder {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+label{
+    color: black;
+    font-size: 25px;
+}
+button{
+    background-color: #00a6ff;
+    color: white;
+    padding: 15px 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 5px 3px;
+}
+
+#info {
+    color: red;
+    font-size: 40px;
+    padding: 40px;
+}

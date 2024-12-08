@@ -1,34 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Popups</title>
+  <style>
+      body {
+          background-color: #13544E;
+          color: #13544E;
+          font-family: 'Poppins', sans-serif;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          position: relative; /* Needed for absolute positioning of the popups */
+      }
+      h1 {
+          font-size: 3rem;
+          font-weight: bold;
+      }
+      .popup, .image-popup {
+          position: fixed;
+          right: 20px; /* Positioned at the right side */
+          background-color: #FFFF6B; /* Light background for popups */
+          border-radius: 10px; /* Rounded corners */
+          z-index: 2000;
+          text-align: center;
+          display: none; /* Initially hidden */
+          box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow for 3D effect */
+          width: 250px; /* Fixed width for popups */
+          padding: 15px; /* Padding for content */
+          transition: transform 0.3s ease; /* Smooth transition */
+      }
+      .popup {
+          top: 20%; /* Positioned higher for the Upwork popup */
+          left: 50%; /* Center horizontally */
+          transform: translate(-50%, 0); /* Center horizontally */
+      }
+      .image-popup {
+          top: 50%; /* Centered vertically for image popup */
+          transform: translateY(-50%); /* Center vertically */
+          display: none; /* Initially hidden */
+      }
+      .image-popup img {
+          width: 100px; /* Adjust size as needed */
+          height: auto; /* Maintain aspect ratio */
+          border-radius: 10px; /* Slightly rounded image */
+          margin-bottom: 10px;
+      }
+      .popup button, .image-popup button {
+          background-color: #23708A; /* Same button color for both popups */
+          color: #FFFF6B;
+          border: none;
+          padding: 12px 18px; /* Medium size for the button */
+          font-size: 16px;
+          cursor: pointer;
+          margin-top: 10px;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+      }
+      .popup button:hover, .image-popup button:hover {
+          background-color: hsl(0, 0%, 16%); /* Slightly darker on hover */
+      }
+
+
+
+
+      /* Media Query to hide image popups on mobile */
+      @media (max-width: 768px) {
+          .image-popup {
+              display: none; /* Hide image popups on mobile */
+          }
+      }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <script>
+      // Function to show the Upwork profile popup
+      function showPopup() {
+          const popup = document.createElement('div');
+          popup.className = 'popup';
+          popup.innerHTML = `
+              👋 Hey there! <br>
+              Check out my Upwork profile!
+              <br><a href="https://www.upwork.com/freelancers/~012b2afe9f5b67e24f?mp_source=share" target="_blank"><button>Visit Upwork</button></a>
+          `;
+          document.body.appendChild(popup);
+          popup.style.display = 'block'; // Show the Upwork popup
+
+
+
+
+          // Play sound when Upwork popup appears
+          const sound = new Audio('https://www.soundjay.com/button/beep-07.wav');
+          sound.play();
+
+
+
+
+          // Remove popup after 5 seconds
+          setTimeout(() => {
+              popup.style.display = 'none';
+          }, 5000000); // Popup will disappear after 5 seconds
+      }
+
+
+
+
+      // Function to show the image popups
+      function showImagePopup(popupIndex) {
+          const imagePopup = document.createElement('div');
+          imagePopup.className = 'image-popup';
+        
+          // Set content for each popup based on the index
+          if (popupIndex === 1) {
+              imagePopup.innerHTML = `
+                  <h2>NEW OFFER!</h2>
+                  <p>Web Analyst & Conversion Tracking Pro MVP!</p>
+                  <img src="./shakil.png" alt="Product Image" style="width:100px; border-radius:10px;"/>
+                  <p></p>
+                  <p class="price"> <span style="text-decoration: line-through;"></span></p>
+                  <a href="https://www.upwork.com/freelancers/~012b2afe9f5b67e24f?mp_source=share" target="_blank"><button>ORDER NOW!</button></a>
+              `;
+          } else {
+              imagePopup.innerHTML = `
+                  <h2>NEW OFFER!</h2>
+                  <p>Check out this amazing deal!</p>
+                  <img src="download-icon-Upwork-1329545834972375892_128.png" style="width:100px; border-radius:10px;"/>
+                  <p>Product 2</p>
+                  <p class="price">$30 <span style="text-decoration: line-through;">$70</span></p>
+                  <button>Add to cart</button>
+              `;
+          }
+
+
+
+
+          document.body.appendChild(imagePopup);
+          imagePopup.style.display = 'block'; // Show image popup
+
+
+
+
+          // Play sound when image popup appears
+          const sound = new Audio('https://www.soundjay.com/button/beep-07.wav');
+          sound.play();
+
+
+
+
+          // Remove popup after 5 seconds
+          setTimeout(() => {
+              imagePopup.style.display = 'none';
+          }, 19000); // Popup will disappear after 5 seconds
+      }
+
+
+
+
+      // Function to cycle through image popups
+      function cyclePopup() {
+          let popupCount = 1;
+          showImagePopup(popupCount);
+          setInterval(() => {
+              popupCount = popupCount === 1 ? 2 : 1; // Alternate between popup 1 and 2
+              showImagePopup(popupCount);
+          }, 200000); // Show popup every 10 seconds
+      }
+
+
+
+
+      window.onload = function() {
+          setTimeout(showPopup, 2000); // Show the Upwork popup after 3 seconds
+          setTimeout(cyclePopup, 5000); // Start cycling through image popups after 10 seconds
+      }
+  </script>
 </head>
 <body>
-    <section id="form-data">
-        <div>
-            <h1>User Information Here</h1>
-            <label for="user-Id">User Id</label><br>
-            <input type="number" id="user-Id" name="id" placeholder="Your User Id"><br><br>
-            <label for="fName">Your First Name</label><br>
-            <input type="text" id="fName" name="fName" placeholder="Your First Name"><br><br>
-            <label for="lName"> Your Last Name</label><br>
-            <input type="text" id="lName" name="lName" placeholder="Your Last Name"><br><br>
-            <label for="phone">Your Phone Number</label><br>
-            <input type="number" id="phone" name="phone" placeholder="Your Phone Number"><br><br>
-            <label for="email"> User Email</label><br>
-            <input type="text" id="email" name="email" placeholder="Your Email" required><br><br>
-            <label for="age">Your age</label><br>
-            <input type="number" id="age" name="age" placeholder="Your Age"><br><br><br>
-            <button type="submit" id="userInfo" class="user-details"> Submit The Form</button>
-            <button id="searchUser"> Search Your Result</button>
-    </div>
-    </section>
-        <p id="info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia autem quasi itaque amet nulla quia obcaecati cupiditate qui architecto asperiores, blanditiis est cumque modi vitae error ratione, culpa harum laudantium!</p>
-        <script src="script.js"></script>
+  <h1 style="color: #FFFF6B">WELCOME TO MY WEBSITE</h1>
 </body>
 </html>
+
+
+
 
 
